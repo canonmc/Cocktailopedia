@@ -1,0 +1,1 @@
+liquors = set(['bourbon','gin','brandy','vodka','whiskey','whisky', 'rum', 'rye'])
