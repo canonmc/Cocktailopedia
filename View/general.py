@@ -1,4 +1,5 @@
 from PyQt5.QtWidgets import QLayout
+
 def clearLayout(layout : QLayout):
     while layout.count():
         child = layout.takeAt(0)

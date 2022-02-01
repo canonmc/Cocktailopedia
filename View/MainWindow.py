@@ -11,6 +11,12 @@ class Main(qtw.QWidget):
         self.tab = qtw.QTabWidget()
         self.layout().addWidget(self.tab)
         self.setGeometry(150, 150, 750, 1000)
+        self.selector = Selector()
+        self.editor = Editor()
+        self.tab.addTab(self.selector, 'Filter')
+        self.tab.addTab(self.editor, "Editor")
 
-        self.tab.addTab(Selector(), 'Filter')
-        self.tab.addTab(Editor(), "Editor")
+        self.tab.currentChanged.connect(self.updateChildren)
+
+    def updateChildren(self):
+        self.tab.currentWidget().update()

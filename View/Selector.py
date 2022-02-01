@@ -25,8 +25,11 @@ class Selector(qtw.QWidget):
         self.layout().addWidget(self.backButton)
         self.backButton.hide()
 
+    def update(self):
+        self.checklist.update()
+
     def contextSwitch(self):
-        if self.stack.currentWidget() == self.checklist:
+        if self.sender() == self.goButton:
             ingredients = []
             i = 3
             cl = self.checklist.children()
@@ -52,12 +55,18 @@ class ScrollableCheckList(qtw.QScrollArea):
         widget = qtw.QWidget()
         self.setLayout(qtw.QVBoxLayout(widget))
         self.layout().setAlignment(qtcqt.AlignTop)
+        self.update()
+
+
+    def update(self):
+        clearLayout(self.layout())
         header = qtw.QLabel("Liquors")
         header.setFont(qt.QFont('Arial', 20))
         self.layout().addWidget(header)
+
         for i in organize_ingredients()[0]:
             row_layout = qtw.QHBoxLayout()
-            txt = qtw.QLabel(i)
+            txt = qtw.QLabel(i.title())
             txt.setFont(qt.QFont('Arial', 15))
             checkbox = qtw.QCheckBox()
 
@@ -73,7 +82,7 @@ class ScrollableCheckList(qtw.QScrollArea):
         self.layout().addWidget(header)
         for i in organize_ingredients()[1]:
             row_layout = qtw.QHBoxLayout()
-            txt = qtw.QLabel(i)
+            txt = qtw.QLabel(i.title())
             txt.setFont(qt.QFont('Arial', 15))
 
             checkbox = qtw.QCheckBox()
@@ -93,7 +102,8 @@ class RecipeWindow(qtw.QScrollArea):
 
     def update(self, ingredients):
         clearLayout(self.layout())
-        possible_drinks = get_possible(*ingredients)
+
+        possible_drinks = get_possible(*[i.lower() for i in ingredients])
         for id in possible_drinks:
             drink = get_recipe(id)
             self.layout().addWidget(CocktailWindow(drink))

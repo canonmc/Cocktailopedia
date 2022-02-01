@@ -1,0 +1,1 @@
+pyqtdeploy-build pyqt-demo.pdy

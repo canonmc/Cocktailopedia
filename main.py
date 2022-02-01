@@ -2,12 +2,9 @@ from Model.Cocktail import Cocktail
 from PyQt5 import QtWidgets as qtw
 from View.MainWindow import Main
 from View.Editor import Editor
+from Model.model import delete, get_table, init_db
 
-old_fashioned = Cocktail("Old Fashioned", ("bourbon", 1.5, 'oz'), ("simple syrup", 1, 'oz'), ('bitters', 4, 'dashes'))
-# insert(old_fashioned)
-#insert(Cocktail("Aviation", ('gin',1.5,'oz'), ('simple syrup','1','oz'), ('vermouth',1,'oz')))
-
-# print(get_recipe(196))
+init_db()
 
 gui = qtw.QApplication([])
 window = Main()
